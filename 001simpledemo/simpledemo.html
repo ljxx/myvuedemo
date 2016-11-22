@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>simple-demo</title>
+	<link rel="stylesheet" type="text/css" href="css/simpledemo.css">
+	<script src="../vuejs/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<fieldset>
+			<legend>新建用户</legend>
+			<div class="form-group">
+				<label>姓名:</label>
+				<input type="text" v-model="newPerson.name">
+			</div>
+			<div class="form-group">
+				<label>年龄:</label>
+				<input type="number" v-model="newPerson.age">
+			</div>
+			<div class="form-group">
+				<label>性别:</label>
+				<select v-model="newPerson.sex">
+					<option value="boy">boy</option>
+					<option value="girl">girl</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label></label>
+				<button @click="createPerson">提交</button>
+			</div>
+		</fieldset>
+		<table>
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>年龄</th>
+					<th>性别</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(person,,index) in people">
+					<td>{{ person.name }}</td>
+					<td>{{ person.age }}</td>
+					<td>{{ person.sex }}</td>
+					<td :class="'text-center'">
+						<button @click="deletePerson(index)">
+							Delete
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<script type="text/javascript">
+		var vm = new Vue({
+			el: '#app',
+			data: {
+				newPerson: {
+					name: '',
+					age: 0,
+					sex: 'boy'
+				},
+				people: [
+					{
+						name: '张三丰',
+						age: 60,
+						sex: 'boy'
+					},
+					{
+						name: '张三丰01',
+						age: 50,
+						sex: 'boy'
+					},
+					{
+						name: '张三丰02',
+						age: 40,
+						sex: 'girl'
+					},
+					{
+						name: '张三丰03',
+						age: 35,
+						sex: 'boy'
+					},
+					{
+						name: '张三丰04',
+						age: 30,
+						sex: 'girl'
+					},
+					{
+						name: '张三丰05',
+						age: 25,
+						sex: 'girl'
+					},
+					{
+						name: '张三丰06',
+						age: 23,
+						sex: 'boy'
+					}
+
+				]
+			},
+			methods: {
+				createPerson: function(){
+					this.people.push(this.newPerson);
+					//添加完newPerson对象后，重置newPerson对象
+					this.newPerson = {
+						name: '',
+						age: 0,
+						sex: 'boy'
+					}
+				},
+				deletePerson: function(index){
+					//删除一个数组元素
+					this.people.splice(index,1);
+				}
+			}
+			
+		});
+	</script>
+</body>
+</html>
